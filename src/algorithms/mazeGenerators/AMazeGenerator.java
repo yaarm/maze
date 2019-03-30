@@ -4,6 +4,11 @@ import java.util.concurrent.ThreadLocalRandom;
 public abstract class AMazeGenerator implements IMazeGenerator{
 
     public long measureAlgorithmTimeMillis(int row, int column){
+        //check if the arguments are valid
+        if ((row < 0) || (row > 1000) || (column < 0) || (column > 1000)) {
+            return -1;
+        }
+
         long startTime, endTime;
         startTime = System.currentTimeMillis();
         generate(row, column);
@@ -12,6 +17,11 @@ public abstract class AMazeGenerator implements IMazeGenerator{
     }
 
     public Position getRandomPosition(int row, int column) {
+        //check if the arguments are valid
+        if ((row < 0) || (row > 1000) || (column < 0) || (column > 1000)) {
+            return null;
+        }
+
         //select random wall
         int wall = ThreadLocalRandom.current().nextInt(1, 5);
         Position p;
@@ -31,4 +41,5 @@ public abstract class AMazeGenerator implements IMazeGenerator{
 
         return p;
     }
+
 }
