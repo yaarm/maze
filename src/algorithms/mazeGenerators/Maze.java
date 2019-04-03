@@ -57,22 +57,41 @@ public class Maze {
      * The function prints the maze
      */
     public void print() {
+            for (int i = 0; i < maze.length; i++) {
+                for (int j = 0; j < maze[i].length; j++) {
+                    if (i == startPosition.getRowIndex() && j == startPosition.getColumnIndex()) {//startPosition
+                        System.out.print(" " + "\u001B[44m" + " ");
+                    } else if (i == goalPosition.getRowIndex() && j == goalPosition.getColumnIndex()) {//goalPosition
+                        System.out.print(" " + "\u001B[44m" + " ");
+                    } else if (maze[i][j] == 1) System.out.print(" " + "\u001B[40m" + " ");
+                    else System.out.print(" " + "\u001B[107m" + " ");
+                }
+                System.out.println(" " + "\u001B[107m");
+            }
+
+        }
+
+
+
+        /*
         for (int i=0; i<maze.length; i++) {
             for (int j=0; j<maze[i].length; j++) {
                 if(maze[i][j] == 1) {
-                    System.out.print("#");
+                    System.out.print(" #");
                 }
                 else if (maze[i][j] == 2) {
-                    System.out.print("S");
+                    System.out.print(" S");
                 }
                 else if (maze[i][j] == 3) {
-                    System.out.print("E");
+                    System.out.print(" E");
                 }
                 else {
-                    System.out.print(" ");
+                    System.out.print("  ");
                 }
             }
             System.out.println();
         }
+    */
     }
-}
+
+

@@ -32,12 +32,24 @@ public class Position {
         return  column;
     }
 
+    /**
+     * The function set the row
+     * @param row
+     */
     public void setRow(int row) {
-        this.row = row;
+        if (row >= 0 && row <= 1000) {
+            this.row = row;
+        }
     }
 
+    /**
+     * The function set the column
+     * @param column
+     */
     public void setColumn(int column) {
-        this.column = column;
+        if (column >=0 && column <= 1000) {
+            this.column = column;
+        }
     }
 
     @Override

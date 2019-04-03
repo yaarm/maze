@@ -28,7 +28,7 @@ public class MyMazeGenerator extends AMazeGenerator {
     private Maze createTheMaze(int[][] matrixMaze) {
         //get start Position
         Position startPosition = getRandomPosition(matrixMaze.length, matrixMaze[0].length);
-        Position goalPosition = new Position(0,0);
+        Position goalPosition = new Position(startPosition.getRowIndex(),startPosition.getColumnIndex());
         Stack<Position> stackPosition = new Stack<>();
         stackPosition.push(startPosition);
 
@@ -55,9 +55,13 @@ public class MyMazeGenerator extends AMazeGenerator {
             //choose a random move from the possible options
             else {
                 generateRandomMove(currPosition, moveOptions, matrixMaze, stackPosition);
-                //update the goal position only if a move was made
-                goalPosition.setRow(currPosition.getRowIndex());
-                goalPosition.setColumn(currPosition.getColumnIndex());
+                //update the goal position only if a move was made and the position is farther
+                if(Math.abs(startPosition.getRowIndex()-currPosition.getRowIndex()) > Math.abs(startPosition.getRowIndex()-goalPosition.getRowIndex()) ||
+                        Math.abs(startPosition.getColumnIndex()-currPosition.getColumnIndex()) > Math.abs(startPosition.getColumnIndex()-goalPosition.getColumnIndex())) {
+                    goalPosition.setRow(currPosition.getRowIndex());
+                    goalPosition.setColumn(currPosition.getColumnIndex());
+
+                }
             }
         }
         matrixMaze[startPosition.getRowIndex()][startPosition.getColumnIndex()] = 2;
@@ -141,7 +145,7 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * The function receives the matrix of the maze and the movement location and returns true if this is
-     * a valid move, otherwisr returns false
+     * a valid move, otherwise returns false
      * @param matrixMaze
      * @param move
      * @param x

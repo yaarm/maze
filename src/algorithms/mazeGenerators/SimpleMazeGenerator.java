@@ -34,8 +34,6 @@ public class SimpleMazeGenerator extends AMazeGenerator{
         initTheMaze(maze);
         //create a random path - the solution of the maze
         createTheMazePath(startPosition, goalPosition, maze);
-        //create random walls in the maze
-        generateWalls(maze);
         //mark the start and goal position
         maze[startPosition.getRowIndex()][startPosition.getColumnIndex()] = 2;
         maze[goalPosition.getRowIndex()][goalPosition.getColumnIndex()] = 3;
@@ -47,7 +45,7 @@ public class SimpleMazeGenerator extends AMazeGenerator{
      */
     private void initTheMaze(int[][] maze) {
         for (int i=0; i<maze.length; i++) {
-            java.util.Arrays.fill(maze[i], -1);
+            java.util.Arrays.fill(maze[i], 1);
         }
     }
 
@@ -141,19 +139,5 @@ public class SimpleMazeGenerator extends AMazeGenerator{
         return currPosition;
     }
 
-    /**
-     * The function creates walls in the matrix maze randomly
-     * @param maze
-     */
-    private void generateWalls(int[][] maze) {
-        for (int i=0; i<maze.length; i++) {
-            for (int j=0; j<maze[i].length; j++) {
-                if (maze[i][j] == -1) {
-                    maze[i][j] = ThreadLocalRandom.current().nextInt(0, 2);
-
-                }
-            }
-        }
-    }
 
 }
