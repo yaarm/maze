@@ -1,6 +1,7 @@
+/**
+ * The class represents a position - as a point with 2 coordinates (row and column)
+ */
 package algorithms.mazeGenerators;
-
-import java.util.Objects;
 
 public class Position {
     private int row;
@@ -37,7 +38,7 @@ public class Position {
      * @param row
      */
     public void setRow(int row) {
-        if (row >= 0 && row <= 1000) {
+        if (row >= 0) {
             this.row = row;
         }
     }
@@ -47,11 +48,16 @@ public class Position {
      * @param column
      */
     public void setColumn(int column) {
-        if (column >=0 && column <= 1000) {
+        if (column >=0) {
             this.column = column;
         }
     }
 
+    /**
+     * The function returns true if this Position is equal to the other object, otherwise returns false
+     * @param o
+     * @return true if this Position is equal to the other object
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,6 +66,10 @@ public class Position {
         return row == position.row && column == position.column;
     }
 
+    /**
+     * The function returns the position as a string - {row,column}
+     * @return String
+     */
     @Override
     public String toString() {
         return "{" + row + "," + column + "}";

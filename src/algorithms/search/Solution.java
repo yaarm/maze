@@ -1,3 +1,6 @@
+/**
+ * The class represents a solution of a search problem
+ */
 package algorithms.search;
 
 import java.util.ArrayList;
@@ -7,6 +10,10 @@ public class Solution {
 
     private AState solutionState;
 
+    /**
+     * The function creates a solution
+     * @param state
+     */
     public Solution(AState state) {
         this.solutionState = state;
     }

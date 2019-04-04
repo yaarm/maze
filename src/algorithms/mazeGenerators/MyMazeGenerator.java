@@ -1,3 +1,7 @@
+/**
+ * The class represent an maze that created by recursive backtracking algorithm
+ */
+
 package algorithms.mazeGenerators;
 
 import java.util.ArrayList;
@@ -7,28 +11,22 @@ import java.util.concurrent.ThreadLocalRandom;
 public class MyMazeGenerator extends AMazeGenerator {
 
     /**
-     * The function receives the size of matrix to generate a maze using recursive backtracking algorithms
+     * The function receives the size of matrix to generate a maze using recursive backtracking algorithm
      * @param row
      * @param column
      * @return Maze
      */
     @Override
     public Maze generate(int row, int column) {
-        IMazeGenerator mg = new MyMazeGenerator();
-        int[][] myMaze = new int[row][column];
-        //create a simple maze - using a blank empty maze
-        return createTheMaze(myMaze);
-    }
-
-    /**
-     * The function receives a blank matrix and create a maze using recursive backtracking
-     * @param matrixMaze
-     * @return
-     */
-    private Maze createTheMaze(int[][] matrixMaze) {
-        //get start Position
-        Position startPosition = getRandomPosition(matrixMaze.length, matrixMaze[0].length);
+        //create the maze
+        Maze myMaze = new Maze(row, column);
+        //get start and goal Position
+        Position startPosition = getRandomPosition(row, column);
         Position goalPosition = new Position(startPosition.getRowIndex(),startPosition.getColumnIndex());
+        myMaze.setStartPosition(startPosition);
+        myMaze.setGoalPosition(goalPosition);
+
+        int[][] matrixMaze = myMaze.getMaze();
         Stack<Position> stackPosition = new Stack<>();
         stackPosition.push(startPosition);
 
@@ -40,7 +38,6 @@ public class MyMazeGenerator extends AMazeGenerator {
         Position currPosition = new Position(startPosition.getRowIndex(),startPosition.getColumnIndex());
         ArrayList<Direction> moveOptions = new ArrayList<>();
         while (!stackPosition.empty()) {
-            //printme(matrixMaze);
             //check the options to advance in the maze
             moveOptions.clear();
             moveOptions = checkOptionToMove(matrixMaze,currPosition, moveOptions);
@@ -66,27 +63,11 @@ public class MyMazeGenerator extends AMazeGenerator {
         }
         matrixMaze[startPosition.getRowIndex()][startPosition.getColumnIndex()] = 2;
         matrixMaze[goalPosition.getRowIndex()][goalPosition.getColumnIndex()] = 3;
-        Maze myMaze = new Maze(startPosition, goalPosition, matrixMaze.length, matrixMaze[0].length);
-        myMaze.setMaze(matrixMaze);
+
         return myMaze;
-
     }
 
-    private void printme(int [][] maze){
-        System.out.println("**********");
-        for (int i=0; i<maze.length; i++) {
-            for (int j=0; j<maze[i].length; j++) {
-                if(maze[i][j] == 1){
-                    System.out.print("X");
-                }
-                else{
-                    System.out.print("O");
-                }
-            }
-            System.out.println();
-        }
-        System.out.println("**********");
-    }
+
     private static enum Direction {
         up,
         down,

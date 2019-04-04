@@ -1,3 +1,6 @@
+/**
+ * The interface defines the functions of maze generators
+ */
 package algorithms.mazeGenerators;
 
 public interface IMazeGenerator {

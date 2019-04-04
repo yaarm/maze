@@ -1,3 +1,6 @@
+/**
+ * The class represent an empty maze without any walls, with start position and goal position
+ */
 package algorithms.mazeGenerators;
 
 public class EmptyMazeGenerator extends AMazeGenerator {
@@ -11,10 +14,9 @@ public class EmptyMazeGenerator extends AMazeGenerator {
      */
     @Override
     public Maze generate(int row, int column) {
-        //check if the arguments are valid
-        if ((row < 0) || (row > 1000) || (column < 0) || (column > 1000)) {
-            return null;
-        }
+        //create the maze
+        Maze maze = new Maze(row, column);
+        int [][] matrixMaze = maze.getMaze();
 
         //get random position for the start and goal of the maze
         Position startPosition = getRandomPosition(row,column);
@@ -22,10 +24,14 @@ public class EmptyMazeGenerator extends AMazeGenerator {
         if (startPosition == null) {
             return null;
         }
+
+        maze.setStartPosition(startPosition);
+
         Position goalPosition;
         int startRow,startColumn,goalRow,goalColumn;
         startRow = startPosition.getRowIndex();
         startColumn = startPosition.getColumnIndex();
+        //get goal position that will be different from the start position
         do {
             goalPosition = getRandomPosition(row, column);
             goalRow = goalPosition.getRowIndex();
@@ -36,9 +42,8 @@ public class EmptyMazeGenerator extends AMazeGenerator {
             return null;
         }
 
-        //create the maze
-        Maze maze = new Maze(startPosition, goalPosition, row, column);
-        int [][] matrixMaze = maze.getMaze();
+        maze.setGoalPosition(goalPosition);
+
         //mark the start and goal position
         matrixMaze[startPosition.getRowIndex()][startPosition.getColumnIndex()] = 2;
         matrixMaze[goalPosition.getRowIndex()][goalPosition.getColumnIndex()] = 3;

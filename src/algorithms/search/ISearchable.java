@@ -1,3 +1,6 @@
+/**
+ * The interface defines functions of a searchable object
+ */
 package algorithms.search;
 
 import java.util.ArrayList;

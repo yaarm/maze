@@ -1,18 +1,28 @@
+/**
+ * The class represents a state of a maze - using the position in the maze
+ */
 package algorithms.search;
 
-import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 
 public class MazeState extends AState {
 
     private Position statePosition;
 
-    public MazeState(Position position, MazeState previousState) {
-        super(position.toString(), 1, previousState);
+    /**
+     * The function creates a maze state
+     * @param position
+     * @param previousState
+     */
+    public MazeState(Position position, MazeState previousState, double cost) {
+        super(position.toString(), cost, previousState);
         this.statePosition = position;
     }
 
-
+    /**
+     * The function returns the state position
+     * @return Position
+     */
     public Position getStatePosition() {
         return statePosition;
     }

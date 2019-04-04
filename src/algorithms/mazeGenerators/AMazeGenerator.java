@@ -1,11 +1,20 @@
+/**
+ * The class represents an abstract instance of all maze generators
+ */
 package algorithms.mazeGenerators;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class AMazeGenerator implements IMazeGenerator{
 
+    /**
+     * The function returns the time that the algorithm to generate a maze
+     * @param row
+     * @param column
+     * @return long
+     */
     public long measureAlgorithmTimeMillis(int row, int column){
         //check if the arguments are valid
-        if ((row < 0) || (row > 1000) || (column < 0) || (column > 1000)) {
+        if ((row < 0) || (column < 0)) {
             return -1;
         }
 
@@ -16,12 +25,13 @@ public abstract class AMazeGenerator implements IMazeGenerator{
         return endTime-startTime;
     }
 
-    public Position getRandomPosition(int row, int column) {
-        //check if the arguments are valid
-        if ((row < 0) || (row > 1000) || (column < 0) || (column > 1000)) {
-            return null;
-        }
-
+    /**
+     * The function returns a random position on the walls of the maze
+     * @param row
+     * @param column
+     * @return Position
+     */
+    protected Position getRandomPosition(int row, int column) {
         //select random wall
         int wall = ThreadLocalRandom.current().nextInt(1, 5);
         Position p;

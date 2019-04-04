@@ -1,3 +1,6 @@
+/**
+ * The interface defines the functions of searching algorithm
+ */
 package algorithms.search;
 
 public interface ISearchingAlgorithm {

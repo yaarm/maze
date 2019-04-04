@@ -1,3 +1,6 @@
+/**
+ * The class represents searching algorithms to solve a problem
+ */
 package algorithms.search;
 
 import java.util.*;
@@ -14,21 +17,84 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
         numberOfVisitedJunctions = 0;
     }
 
+    /**
+     * The function search for the goal state of a searchable object
+      * @param search
+     * @return AState - goal state
+     */
     @Override
-    public abstract AState search(ISearchable search);
+    public AState search(ISearchable search) {
+        if (search == null || search.getStartState() == null || search.getGoalState() == null){
+            return null;
+        }
+        AState startState = search.getStartState();
+        AState goalState = search.getGoalState();
+        AState currentState;
+        ArrayList<AState> stateSuccessors;
+        pushQueueStates(startState);
 
+        while(!queueStates.isEmpty()){
+            currentState = popQueueStates();
+            //check if the state already been visited
+            if (visitedStates.containsKey(currentState.getState())){
+                continue;
+            }
+            visitedStates.put(currentState.toString(),currentState);
+            //check if we made to the goal state
+            if(currentState.equals(goalState)){
+                return currentState;
+            }
+
+            //add the possible options to advance from the current state
+            stateSuccessors = search.getAllSuccessors(currentState);
+            //get unvisited options to advance
+            stateSuccessors = getUnvisitedMoveOptions(stateSuccessors);
+            //check if there is no option to advance
+            if (stateSuccessors == null) {
+                continue;
+            }
+
+            for (AState state: stateSuccessors) {
+                pushQueueStates(state);
+            }
+
+        }
+        return null;
+    }
+
+    /**
+     * The function receives an AState, set it's cost and push it to the queue if it doesn't exist already
+     * @param state
+     */
+    protected abstract void pushQueueStates(AState state);
+
+    /**
+     * The function returns the last state in the queue and increase the number of visited junctions
+     * @return
+     */
     protected AState popQueueStates(){
         numberOfVisitedJunctions++;
         return queueStates.poll();
     }
 
+    /**
+     * The function returns the number of nodes that have been evaluated
+     * @return int
+     */
     @Override
     public int getNumberOfNodesEvaluated() {
         return numberOfVisitedJunctions;
     }
 
-
+    /**
+     * The function returns a solution for the searchable object
+     * @param domain
+     * @return Solution
+     */
     public Solution solve(ISearchable domain) {
+        if (domain == null) {
+            return null;
+        }
         return new Solution(search(domain));
     }
 
